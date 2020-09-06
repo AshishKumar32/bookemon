@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Book Movie Tickets</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link href="{%static '/style.css' %}" rel="stylesheet">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a href="#" class="navbar-brand"><img src="{%static '/img/logo.png' %}"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a href="/" class="nav-link">Home</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">About</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Services</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Team</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">Connect</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+
+<style>
+    .table td:hover{
+        background-color: rgba(0, 128, 0, 0.39);
+    }
+</style>
+<div class="container text-center">
+	<h2>{{movie}}</h2>
+</div>
+<div class="container-fluid">
+	<div class="row justify-content-center">
+	<div class="col-auto">
+<table class="table table-bordered table-responsive" id="matrix">
+    <tr>
+      <td>   </td>
+	  <td>   </td>
+	  <td>   </td>
+	  <td>   </td>
+    </tr>
+    <tr>
+		<td>   </td>
+		<td>   </td>
+		<td>   </td>
+		<td>   </td>
+    </tr>
+    <tr>
+		<td>   </td>
+		<td>   </td>
+		<td>   </td>
+		<td>   </td>
+    </tr>
+    <tr>
+		<td>   </td>
+		<td>   </td>
+		<td>   </td>
+		<td>   </td>
+	</tr>
+	<tr>
+		<td>   </td>
+	  	<td>   </td>
+	  	<td>   </td>
+	  	<td>   </td>
+	</tr>
+  </table>
+</div>
+</div>
+<div class="row justify-content-center">
+	<div class="col-auto">
+		<button class="btn btn-primary" onclick="confirm()" id="confirm">Confirm</button>
+	</div>
+</div>
+</div>
+<div class="container">
+	<div class="row justify-content-center">
+		<div class="col-auto">
+			
+			<form action="/bookticket/" method="POST">
+				{% csrf_token %}
+				<input type="hidden" name="movie" value="{{movie}}"/>
+				<input type="text" id="seatno" name="seatno" placeholder="Selected Seats"/>
+				<input type="text" name="phone" placeholder="Phone Number"/>
+				<input type="text" name="username" placeholder="Enter Your Name"/>
+				<!-- <input type="text" name="phone" placeholder="Phone Number"/> -->
+				<button class="btn btn-success" type="submit">Book</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- Accounting for already booked seats-->
+<script type="text/javascript">
+    const cells2 = document.querySelectorAll('td');
+    var arr={{seats|safe}};
+	console.log(arr);
+	var i=0;
+	for(i=0;i<arr.length;i++)
+	{
+		if(arr[i]==1)
+		{
+			cells2[i].style.backgroundColor="red";
+		}
+	}
+	
+</script>
+<!--Click Actions on the seat matrix-->
+
+<script type="text/javascript">
+	var table = document.getElementById("matrix");
+    if (table != null) {
+        for (var i = 0; i < table.rows.length; i++) {
+            for (var j = 0; j < table.rows[i].cells.length; j++)
+           ;
+        }
+	}
+	i=i-1;
+	j=j-1;
+	
+const cells = document.querySelectorAll('td');
+cells.forEach(cell => {
+  cell.addEventListener('click',function(){
+
+	console.log("Row index: " + cell.closest('tr').rowIndex + " | Column index: " + cell.cellIndex);
+	var r=cell.closest('tr').rowIndex;
+	var c=cell.cellIndex+1;
+	var pos=r*i+c;
+	console.log("position :" + pos)
+	if(cell.style.backgroundColor =="red")
+	{
+		alert("seat already booked");
+		return;
+	}
+	if(cell.style.backgroundColor =="green")
+	{
+		cell.style.backgroundColor="white";
+	}
+	else
+	{
+		cell.style.backgroundColor ="green";
+	}
+  });
+});
+
+
+</script>
+
+
+<script type="text/javascript">
+	function confirm()
+	{
+		console.log("Confirm function fired")
+		document.getElementById("seatno").value='';
+		const cells3 = document.querySelectorAll('td');
+		cells3.forEach(cell => {
+  		
+			console.log("Row index: " + cell.closest('tr').rowIndex + " | Column index: " + cell.cellIndex);
+			var r=cell.closest('tr').rowIndex;
+			var c=cell.cellIndex+1;
+			var pos=r*i+c;
+		if(cell.style.backgroundColor =="green")
+		{
+			currval=document.getElementById("seatno").value;
+			console.log("currval : " + currval)
+			if(currval.length <= 0)
+				document.getElementById("seatno").value =pos;
+			else
+				document.getElementById("seatno").value = currval +","+pos;
+	}
+  });
+
+	}
+</script>
+
+<footer>
+	<div class="container-fluid padding">
+		<div class="row text-center">
+			<div class="col-md-4">
+				<img src="{%static '/img/logo.png' %}">
+				<hr class="light">
+				<p>555-555-555</p>
+				<p>email@myemail.com</p>
+				<p>100 Street Name</p>
+				<p>City, State, 0000</p>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Our Hours</h5>
+				<hr class="light">
+				<p>Monday: 9am - 5pm</p>
+				<p>Saturday: 10am -4pm</p>
+				<p>Sunday: Closed</p>
+			</div>
+			<div class="col-md-4">
+				<hr class="light">
+				<h5>Service Area</h5>
+				<hr class="light">
+				<p>City, State, 0000</p>
+				<p>City, State, 0000</p>
+				<p>City, State, 0000</p>
+				<p>City, State, 0000</p>
+			</div>
+			<div class="col-12">
+				<hr class="light-100">
+				<h5>&copy; w3newbie.com</h5>
+			</div>
+		</div>
+	</div>
+</footer>
+</body>
+</html>
