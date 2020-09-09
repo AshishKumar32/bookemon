@@ -78,10 +78,11 @@ WSGI_APPLICATION = 'mbook.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mbook',
-        'USER': 'postgres',
-        'PASSWORD':'1234',
-        'HOST': 'localhost',
+        'NAME': 'd9k5afdircqcnd',
+        'USER': 'pnbxrcronyhhxl',
+        'PASSWORD':'0ec9a28d81eaf3e1ac49326b7f4cc676ca943f5da11b75033e23a94251922518',
+        'HOST': 'ec2-54-91-178-234.compute-1.amazonaws.com',
+        'PORT': 5432,
     }
 }
 
