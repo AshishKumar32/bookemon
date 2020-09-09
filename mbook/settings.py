@@ -25,7 +25,7 @@ SECRET_KEY = '7j%!fbn@y%5=ki&(c(d9tx89%2-i$(w_uv4fhc%@x6kv7r+nj&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['http://bookemon.herokuapp.com','localhost']
 
 
 # Application definition
