@@ -18,6 +18,58 @@
 	html {
 		scroll-behavior: smooth;
 	  }
+input.expanding-search{
+    outline: none;
+}
+input.expanding-search[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
+  float: right;
+    width: 15px;
+    padding-left: 10px;
+    color: transparent;
+    cursor: pointer;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+    display: none; 
+}
+
+input[type=search] {
+    background: rgba(233, 234, 236, 0.849) url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMTUuNSAxNGgtLjc5bC0uMjgtLjI3QzE1LjQxIDEyLjU5IDE2IDExLjExIDE2IDkuNSAxNiA1LjkxIDEzLjA5IDMgOS41IDNTMyA1LjkxIDMgOS41IDUuOTEgMTYgOS41IDE2YzEuNjEgMCAzLjA5LS41OSA0LjIzLTEuNTdsLjI3LjI4di43OWw1IDQuOTlMMjAuNDkgMTlsLTQuOTktNXptLTYgMEM3LjAxIDE0IDUgMTEuOTkgNSA5LjVTNy4wMSA1IDkuNSA1IDE0IDcuMDEgMTQgOS41IDExLjk5IDE0IDkuNSAxNHoiLz4NCiAgICA8cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+DQo8L3N2Zz4=") no-repeat 9px center;
+    border: solid 0px #ccc;
+    padding: 9px 14px 9px 32px;
+    width: 55px;
+    
+    -webkit-border-radius: 12em;
+    -moz-border-radius: 12em;
+    border-radius: 12em;
+    
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+input[type=search]:focus {
+    width: 130px;
+  padding-left: 32px;
+  color: #000;
+    background-color: #fff;
+    cursor: auto;
+    border-color: #66CC75;
+    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+
+input.expanding-search:-moz-placeholder {
+    color: transparent;
+}
+input.expanding-search::-webkit-input-placeholder {
+    color: transparent;
+}
+
 </style>
 <!-- Navigation -->
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
@@ -32,18 +84,28 @@
 					<a href="#" class="nav-link">Home</a>
 				</li>
 				<li class="nav-item">
-					<a href="#now" class="nav-link">About</a>
+					<a href="/test" class="nav-link">About</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link">Services</a>
+					<form id="demo-2" class="expanding-search form-inline my-2 my-lg-0" action="search">
+						<input type="search" name="keyword" class="form-control expanding-search mr-sm-2" placeholder="Search" aria-label="Search">
+						
+					<button class="sr-only btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					</form>
+				</li>
+				{% if user.is_authenticated%}
+				<li class="nav-item">
+					<a href="#" class="nav-link">Hello {{user.first_name}}</a>
 				</li>
 				<li class="nav-item">
-					<a href="#" class="nav-link">Team</a>
+					<a href="accounts/logout" class="nav-link">Logout</a>
 				</li>
+				{% else %}
 				<li class="nav-item">
-					<a href="#" class="nav-link">Connect</a>
+					<a href="accounts/register" class="nav-link">Login</a>
 				</li>
-			</ul>
+				{% endif %}
+			</ul> 
 		</div>
 	</div>
 </nav>
@@ -163,7 +225,7 @@
 </div>
 
 <!--- Two Column Section -->
-<div class="container-fluid padding">
+<!-- <div class="container-fluid padding">
 	<div class="row padding">
 		<div class="col-lg-6">
 			<h2>If you build it...</h2>
@@ -188,7 +250,7 @@
 		</div>
 	</div>
 </div>
-<hr class="my-4">
+<hr class="my-4"> -->
 
 <!--- Fixed background -->
 <figure>
@@ -256,7 +318,7 @@
 	</div>
 </div>
 <!--- Two Column Section -->
-<div class="container-fluid padding">
+<!-- <div class="container-fluid padding">
 	<div class="row padding">
 		<div class="col-lg-6">
 			<h2>Our Philosophy</h2>
@@ -281,7 +343,7 @@
 		</div>
 	</div>
 	<hr class="my-4">
-</div>
+</div> -->
 
 <!--- Connect -->
 <div class="container-fluid">

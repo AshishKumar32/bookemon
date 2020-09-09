@@ -1,0 +1,137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Book Movie Tickets</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link href="{%static '/style.css' %}" rel="stylesheet">
+	<link rel="stylesheet" href="https://m.w3newbie.com/you-tube.css">
+</head>
+<body>
+<style>
+	html {
+		scroll-behavior: smooth;
+	  }
+input.expanding-search{
+    outline: none;
+}
+input.expanding-search[type=search] {
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    font-family: inherit;
+    font-size: 100%;
+  float: right;
+    width: 15px;
+    padding-left: 10px;
+    color: transparent;
+    cursor: pointer;
+}
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button {
+    display: none; 
+}
+
+input[type=search] {
+    background: rgba(233, 234, 236, 0.849) url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMTUuNSAxNGgtLjc5bC0uMjgtLjI3QzE1LjQxIDEyLjU5IDE2IDExLjExIDE2IDkuNSAxNiA1LjkxIDEzLjA5IDMgOS41IDNTMyA1LjkxIDMgOS41IDUuOTEgMTYgOS41IDE2YzEuNjEgMCAzLjA5LS41OSA0LjIzLTEuNTdsLjI3LjI4di43OWw1IDQuOTlMMjAuNDkgMTlsLTQuOTktNXptLTYgMEM3LjAxIDE0IDUgMTEuOTkgNSA5LjVTNy4wMSA1IDkuNSA1IDE0IDcuMDEgMTQgOS41IDExLjk5IDE0IDkuNSAxNHoiLz4NCiAgICA8cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+DQo8L3N2Zz4=") no-repeat 9px center;
+    border: solid 0px #ccc;
+    padding: 9px 14px 9px 32px;
+    width: 55px;
+    
+    -webkit-border-radius: 12em;
+    -moz-border-radius: 12em;
+    border-radius: 12em;
+    
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
+input[type=search]:focus {
+    width: 130px;
+  padding-left: 32px;
+  color: #000;
+    background-color: #fff;
+    cursor: auto;
+    border-color: #66CC75;
+    -webkit-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    -moz-box-shadow: 0 0 5px rgba(109,207,246,.5);
+    box-shadow: 0 0 5px rgba(109,207,246,.5);
+}
+
+input.expanding-search:-moz-placeholder {
+    color: transparent;
+}
+input.expanding-search::-webkit-input-placeholder {
+    color: transparent;
+}
+
+</style>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+	<div class="container-fluid">
+		<a href="#" class="navbar-brand"><img src="{%static '/img/logo.png' %}"></a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarResponsive">
+			<ul class="navbar-nav ml-auto">
+				<li class="nav-item active">
+					<a href="#" class="nav-link">Home</a>
+				</li>
+				<li class="nav-item">
+					<a href="/test" class="nav-link">About</a>
+				</li>
+				<li class="nav-item">
+					<form id="demo-2" class="expanding-search form-inline my-2 my-lg-0" method="GET" action="search">
+						<input type="search" class="form-control expanding-search mr-sm-2" placeholder="Search" aria-label="Search">
+						
+					<button class="sr-only btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					</form>
+				</li>
+				{% if user.is_authenticated%}
+				<li class="nav-item">
+					<a href="#" class="nav-link">Hello {{user.first_name}}</a>
+				</li>
+				<li class="nav-item">
+					<a href="accounts/logout" class="nav-link">Logout</a>
+				</li>
+				{% else %}
+				<li class="nav-item">
+					<a href="accounts/register" class="nav-link">Login</a>
+				</li>
+				{% endif %}
+			</ul> 
+		</div>
+	</div>
+</nav>
+
+<div class="container justify-items-center col-4" id="now" >
+	<div class="card-deck">
+		{% for obj in movies %}
+    	{% if obj.bookings %}
+		
+			<div class="card">
+				<img src="{{obj.thumbnail.url}}" class="card-img-top">
+				<div class="card-body">
+					<h4 class="card-title">{{obj.name}}</h4>
+					<p class="card-text">{{obj.desc}}</p>
+					<form action="/book/" method='GET'>
+						<input type="hidden" name="movie" value="{{ obj.name }}" />
+						<button type="submit" class="btn btn-outline-secondary">Book Now</button>
+					</form>
+				</div>
+		
+		</div>
+		
+		{%endif%}
+    	{%endfor%}
+		
+	</div>
+</div>
+</body>
+</html>

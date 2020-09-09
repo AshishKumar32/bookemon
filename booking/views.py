@@ -1,7 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from . models import movie,ticket
+from . models import movie,ticket,Profile
+from django.contrib.auth.models import User
 from datetime import datetime
+from io import BytesIO
+import base64
 
 # Create your views here.
 def home (requests):
@@ -36,5 +39,39 @@ def bookticket(requests):
     book_time=datetime.now()
     ticket1 = ticket.objects.create(movie=movie1, book_time=book_time,user=username,phone=phone,nos=length,seats=seatarri1)
     obj= ticket.objects.get(movie=movie1, book_time=book_time,user=username,phone=phone,nos=length)
+    username = None
+    if requests.user.is_authenticated:
+        user_id = requests.user.id
+    user = User.objects.get(pk=user_id)
+    user.profile.tickets.append(obj.id)
+    user.save()
     id=obj.id
-    return render(requests,'booked.html',{'obj':obj})
+    seatqr= ""
+    for i in seatarr:
+        seatqr=seatqr+str(i)+","
+    dataqr="id:"+str(id)+","+"movie:"+movie1+","+"seats:"+seatqr
+    dataqr=dataqr.rstrip(',')
+    print (dataqr)
+    # qr.add_data(dataqr)
+    # qr.make(fit=True)
+    # img = qr.make_image(fill='black', back_color='white')
+
+    # buffer = BytesIO()
+    # img.save(buffer, format="PNG")
+    # img_str = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    return render(requests,'booked.html',{'obj':obj,'my_qr_code': dataqr })
+
+def test(requests):
+    
+    return render(requests,'search.html')
+
+def search(requests):
+    if requests.method == 'GET': # this will be GET now      
+        movie_name =  requests.GET.get('keyword') # do some research what it does       
+        try:
+            movlist = movie.objects.filter(name__icontains=movie_name) # filter returns a list so you might consider skip except part
+            return render(requests,"search.html",{"movies":movlist})
+        except:
+            return render(requests,"search.html",{'movies':movlist})
+    else:
+        return render(requests,"search.html",{})
