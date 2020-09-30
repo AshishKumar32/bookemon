@@ -3,6 +3,7 @@ from django.contrib.postgres.fields import ArrayField
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 # Create your models here.
 class movie(models.Model):
     name=models.CharField(max_length=200)
@@ -10,7 +11,7 @@ class movie(models.Model):
     time_start=models.TimeField()
     time_end=models.TimeField()
     bookings=models.IntegerField()
-    thumbnail=models.ImageField()
+    thumbnail = CloudinaryField('image')
     booked=ArrayField(models.IntegerField(),default= list, size = 20)
 
 

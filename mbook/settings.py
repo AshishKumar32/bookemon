@@ -11,7 +11,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -25,7 +27,7 @@ SECRET_KEY = '7j%!fbn@y%5=ki&(c(d9tx89%2-i$(w_uv4fhc%@x6kv7r+nj&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['bookemon.herokuapp.com','localhost']
+ALLOWED_HOSTS = ['bookemon.herokuapp.com','localhost','127.0.0.1']
 
 
 # Application definition
@@ -33,6 +35,7 @@ ALLOWED_HOSTS = ['bookemon.herokuapp.com','localhost']
 INSTALLED_APPS = [
     'booking',
     'qr_code',
+    'cloudinary',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -76,6 +79,15 @@ WSGI_APPLICATION = 'mbook.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mbook',
+#         'USER': 'postgres',
+#         'PASSWORD':'1234',
+#         'HOST': 'localhost',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -132,3 +144,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
+cloudinary.config( 
+  cloud_name = "dbastcld", 
+  api_key = "715862151433929", 
+  api_secret = "mH47QRza2DKGAlQMqxZYopqRzA8" 
+)
