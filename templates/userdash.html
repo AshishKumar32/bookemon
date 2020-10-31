@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Book Movie Tickets</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link href="{%static '/style.css' %}" rel="stylesheet">
+</head>
+<style>
+    .tab-content {
+        padding : 0.5rem 1rem;
+
+    }
+
+</style>
+<body>
+    <div class="row h-100">
+        <div class="col-2 bg-dark">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+              aria-controls="v-pills-home" aria-selected="true">History</a>
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+              aria-controls="v-pills-profile" aria-selected="false">Profile</a>
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+              aria-controls="v-pills-messages" aria-selected="false">Messages</a>
+            <a class="nav-link"  href="/" role="tab" aria-selected="false">Home</a>
+          </div>
+        </div>
+        <div class="col-10 bg-secondary text-light">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+              {%for i,j in data%}
+              Ticket ID : {{i.id}}<br>
+              Movie Name : {{i.movie}}<br>
+              Booking Date : {{i.book_time}}<br>
+              <hr>
+              {%endfor%}
+            </div>
+            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                <div>
+                    <div class="row col-2"><img src="https://res.cloudinary.com/dbastcld/image/upload/v1601555490/User-Avatar-PNG-Transparent-Image_cxwjda.png" alt="user_avatar" class="img-fluid"></div>
+                    Email : {{email}}
+                    <br>
+                    Name : {{f_n}} {{l_n}}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">Section with</div>
+          </div>
+        </div>
+      </div>
+      </body>
