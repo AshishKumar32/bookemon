@@ -17,6 +17,32 @@ def book (requests):
     arr=obj.booked
     return render(requests,'booking.html',{'seats':arr,'movie':movie1})
 
+def userdash (requests):
+    if requests.user.is_authenticated:
+        user_id = requests.user.id
+        user = User.objects.get(pk=user_id)
+        f_name=user.first_name
+        l_name=user.last_name
+        tickets=user.profile.tickets
+        email=user.username
+        movie1=[]
+        movdet=[]
+        for id in tickets :
+            movie1.append(ticket.objects.get(id=id))
+        for obj in movie1:
+            movdet.append(movie.objects.get(name=obj.movie))
+        print(movdet)
+        user_data = zip(movie1, movdet)
+        context = {
+            'f_n':f_name,
+            'l_n':l_name,
+            'email':email,
+            'tickets':tickets,
+            'data': user_data,
+        }
+
+    return render(requests,'userdash.html',context)
+
 def bookticket(requests):
     seats=requests.POST['seatno']
     movie1=requests.POST['movie']

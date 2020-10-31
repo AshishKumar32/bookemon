@@ -16,6 +16,33 @@
 </head>
 <body>
 <style>
+	::-webkit-scrollbar-track
+	{
+		-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+		background-color: #F5F5F5;
+	}
+	
+	::-webkit-scrollbar
+	{
+		width: 10px;
+		background-color: #F5F5F5;
+	}
+	
+	::-webkit-scrollbar-thumb
+	{
+		background-color: rgb(0, 162, 255);	
+		background-image: -webkit-linear-gradient(45deg,
+												  rgba(255, 255, 255, .2) 25%,
+												  transparent 25%,
+												  transparent 50%,
+												  rgba(255, 255, 255, .2) 50%,
+												  rgba(255, 255, 255, .2) 75%,
+												  transparent 75%,
+												  transparent)
+	}
+	
+
+
 	html {
 		scroll-behavior: smooth;
 	  }
@@ -43,13 +70,8 @@ input::-webkit-search-cancel-button {
 	}
 .cardrow {
 		overflow-x: scroll;
-		
 		padding: 1rem;
 		}
-.card-footer {
-	background: transparent;
-	border-top: 0px;
-		  }
 
 input[type=search] {
     background: rgba(233, 234, 236, 0.849) url("data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiAgICA8cGF0aCBkPSJNMTUuNSAxNGgtLjc5bC0uMjgtLjI3QzE1LjQxIDEyLjU5IDE2IDExLjExIDE2IDkuNSAxNiA1LjkxIDEzLjA5IDMgOS41IDNTMyA1LjkxIDMgOS41IDUuOTEgMTYgOS41IDE2YzEuNjEgMCAzLjA5LS41OSA0LjIzLTEuNTdsLjI3LjI4di43OWw1IDQuOTlMMjAuNDkgMTlsLTQuOTktNXptLTYgMEM3LjAxIDE0IDUgMTEuOTkgNSA5LjVTNy4wMSA1IDkuNSA1IDE0IDcuMDEgMTQgOS41IDExLjk5IDE0IDkuNSAxNHoiLz4NCiAgICA8cGF0aCBkPSJNMCAwaDI0djI0SDB6IiBmaWxsPSJub25lIi8+DQo8L3N2Zz4=") no-repeat 9px center;
@@ -109,7 +131,7 @@ input.expanding-search::-webkit-input-placeholder {
 				</li>
 				{% if user.is_authenticated%}
 				<li class="nav-item">
-					<a href="#" class="nav-link">Hello {{user.first_name}}</a>
+					<a href="/userdash/" class="nav-link">Hello {{user.first_name}}</a>
 				</li>
 				<li class="nav-item">
 					<a href="accounts/logout" class="nav-link">Logout</a>
@@ -191,7 +213,7 @@ input.expanding-search::-webkit-input-placeholder {
 
 
 <!--- Welcome Section -->
-<div class="container-fluid padding">
+<!-- <div class="container-fluid padding">
 	<div class="row welcome text-center">
 		<div class="col-12">
 			<h1 class="display-4">Book with ease.</h1>
@@ -202,10 +224,10 @@ input.expanding-search::-webkit-input-placeholder {
 			</p>
 		</div>
 	</div>
-</div>
+</div> -->
 
 <!--- Three Column Section -->
-<div class="container-fluid padding">
+<!-- <div class="container-fluid padding">
 	<div class="row text-center padding">
 		<div class="col-xs-12 col-sm-6 col-md-4">
 			<i class="fas fa-code"></i>
@@ -224,7 +246,7 @@ input.expanding-search::-webkit-input-placeholder {
 		</div>
 	</div>
 	<hr class="my-4">`
-</div>
+</div> -->
 
 <!--- Two Column Section -->
 <!-- <div class="container-fluid padding">
@@ -368,33 +390,33 @@ input.expanding-search::-webkit-input-placeholder {
 	<div class="container-fluid padding">
 		<div class="row text-center">
 			<div class="col-md-4">
-				<img src="{%static '/img/w3newbie.png' %}">
+				<img src="{%static '/img/logo.png' %}">
 				<hr class="light">
-				<p>555-555-555</p>
-				<p>email@myemail.com</p>
-				<p>100 Street Name</p>
-				<p>City, State, 0000</p>
+				<p>9999999999</p>
+				<p>akashishkumar250@gmail.com</p>
+				<p>Somewhere in</p>
+				<p>Ranchi,Jharkhand</p>
 			</div>
 			<div class="col-md-4">
 				<hr class="light">
-				<h5>Our Hours</h5>
+				<h5>My Interests</h5>
 				<hr class="light">
-				<p>Monday: 9am - 5pm</p>
-				<p>Saturday: 10am -4pm</p>
-				<p>Sunday: Closed</p>
+				<p>Making Websites</p>
+				<p>Designing Interfaces</p>
+				<p>Playing Video Games</p>
+				
 			</div>
 			<div class="col-md-4">
 				<hr class="light">
-				<h5>Service Area</h5>
+				<h5>Other Projects</h5>
 				<hr class="light">
-				<p>City, State, 0000</p>
-				<p>City, State, 0000</p>
-				<p>City, State, 0000</p>
-				<p>City, State, 0000</p>
+				<a href="https://ez-weather20.herokuapp.com/" target="_blank"><p>EZ Weather</p></a>
+				<a href="https://simple-chatrooms.herokuapp.com/" target="_blank"><p>Simple Chatrooms</p></a>
+				
 			</div>
 			<div class="col-12">
 				<hr class="light-100">
-				<h5>&copy; bookemon.herokuapp.com</h5>
+				<h5>bookemon.herokuapp.com</h5>
 			</div>
 		</div>
 	</div>
